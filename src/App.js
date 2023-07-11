@@ -100,7 +100,7 @@ function App() {
 
       {/* Seat color indication */}
 
-      <div style={{ height: "300px", width: "500px" }}>
+      {/* <div style={{ height: "100px", width: "500px" }}>
         {" "}
         <Flex
           // w={{ base: "60%", md: "20%", lg: "20%" }}
@@ -111,12 +111,14 @@ function App() {
           p={"40px"}
           borderRadius={"50%"}
           marginLeft={"80px"}
+          // marginButtom={"80px"}
           boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px;"}
         >
           <div
             style={{
               height: "100px",
               display: "flex",
+              marginBottom:"100px",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
@@ -139,7 +141,7 @@ function App() {
           </div>
         </Flex>
       </div>
-       {/* Booking section */}
+       Booking section */}
 
       <div style={{ height: "400px", width: "500px"}}>
         <Flex
@@ -198,7 +200,7 @@ function App() {
             // gridGap="1"
           >
             {seats.slice(0, 80).map((e) => (
-              <Box key={e._id} align="center" height="60px" width="100px">
+              <Box key={e._id} align="center" height="48px" width="100px">
                 <LuArmchair
                   color={e.isBooked ? "red" : "green"}
                   fontSize={"40px"}
