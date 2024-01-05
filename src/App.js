@@ -51,7 +51,7 @@ function App() {
     }
 
     axios
-      .post(`https://ticket-booking-backend-seven.vercel.app/seatsreserve`, {
+      .post(`https://ticket-booking-backend-seven.vercel.app/seats/reserve`, {
         No_of_Seats: Number(count),
       })
       .then((res) => {
@@ -76,7 +76,7 @@ function App() {
   };
   const handleReset = () => {
     axios
-      .patch(`https://ticket-booking-backend-seven.vercel.app/seatsreset`)
+      .patch(`https://ticket-booking-backend-seven.vercel.app/seats/reset`)
       .then((res) => {
         setBooked(res.data);
         toast({
