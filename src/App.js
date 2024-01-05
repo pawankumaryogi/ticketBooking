@@ -42,7 +42,7 @@ function App() {
   const handleBook = () => {
     if (count > 7 || count === 0) {
       toast({
-        title: "You cannot book more than 7 seats at a time.",
+        title: "You can not book more than 7 or less then 1 seats at a time.",
         status: "error",
         position: "top",
         isClosable: true,
@@ -157,7 +157,7 @@ function App() {
               <InputLeftAddon>Seats :</InputLeftAddon>
               <Input
                 type="number"
-                placeholder="phone number"
+                placeholder="no of seats"
                 value={count}
                 onChange={(e) => setCount(e.target.value)}
               />
