@@ -3,9 +3,9 @@
 ### Contact No - 7023593251 <br/>
 ### Email - pawanyogi5nov@gmail.com <br/>
 ## Backend
-backend- https://ticketBookingPawan-backend.vercel.app/ <br/>
+backend- https://ticket-booking-backend-seven.vercel.app/ <br/>
 ## Frontend
-frontend - https:/ticketBookingPawan-frontend.vercel.app/
+frontend - https://ticket-booking-nu.vercel.app/
 
 
 ### Technology Used <br/>
