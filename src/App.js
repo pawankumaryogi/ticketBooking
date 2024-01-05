@@ -31,7 +31,7 @@ function App() {
 
   const getSeats = () => {
     axios
-      .get(`https://ticket-booking-backend-seven.vercel.app/seatsseats`)
+      .get(`https://ticket-booking-backend-seven.vercel.app/seats`)
       .then((res) => {
         setLoading(false);
         setSeats(res.data);
