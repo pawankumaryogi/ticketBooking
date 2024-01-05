@@ -31,7 +31,7 @@ function App() {
 
   const getSeats = () => {
     axios
-      .get(`https://ticket-booking-backend-seven.vercel.app/seats`)
+      .get(`https://ticket-booking-backend-seven.vercel.app/seatsseats`)
       .then((res) => {
         setLoading(false);
         setSeats(res.data);
@@ -51,7 +51,7 @@ function App() {
     }
 
     axios
-      .post(`https://ticket-booking-backend-seven.vercel.app/reserve`, {
+      .post(`https://ticket-booking-backend-seven.vercel.app/seatsreserve`, {
         No_of_Seats: Number(count),
       })
       .then((res) => {
@@ -76,7 +76,7 @@ function App() {
   };
   const handleReset = () => {
     axios
-      .patch(`https://ticket-booking-backend-seven.vercel.app/reset`)
+      .patch(`https://ticket-booking-backend-seven.vercel.app/seatsreset`)
       .then((res) => {
         setBooked(res.data);
         toast({
@@ -208,10 +208,7 @@ function App() {
               boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px;"}
               // gridGap="1"
             >
-              {
-                
-
-              seats.slice(0, 80).map((e) => (
+              {seats.slice(0, 80).map((e) => (
                 <Box key={e._id} align="center" height="38px" width="90px">
                   <LuArmchair
                     color={e.isBooked ? "gray" : "green"}
