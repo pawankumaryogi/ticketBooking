@@ -31,7 +31,7 @@ function App() {
 
   const getSeats = () => {
     axios
-      .get(`https://ticket-booking-backend-seven.vercel.app`)
+      .get(`https://ticket-booking-backend-seven.vercel.app/seats`)
       .then((res) => {
         setLoading(false);
         setSeats(res.data);
@@ -208,7 +208,10 @@ function App() {
               boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px;"}
               // gridGap="1"
             >
-              {seats.slice(0, 80).map((e) => (
+              {
+                
+
+              seats.slice(0, 80).map((e) => (
                 <Box key={e._id} align="center" height="38px" width="90px">
                   <LuArmchair
                     color={e.isBooked ? "gray" : "green"}
