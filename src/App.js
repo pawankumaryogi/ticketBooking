@@ -9,6 +9,8 @@ import {
   Grid,
   Heading,
   Input,
+  InputGroup,
+  InputLeftAddon,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -17,6 +19,7 @@ import { LuArmchair } from "react-icons/lu";
 function App() {
   const [loading, setLoading] = useState(true);
   const [seats, setSeats] = useState([]);
+  // console.log(seats)
 
   const [count, setCount] = useState(0);
   const [booked, setBooked] = useState([]);
@@ -28,7 +31,7 @@ function App() {
 
   const getSeats = () => {
     axios
-      .get(`https://unstop-task-backend-pawankumaryogi.vercel.app/seats`)
+      .get(`http://localhost:8000/seats`)
       .then((res) => {
         setLoading(false);
         setSeats(res.data);
@@ -48,7 +51,7 @@ function App() {
     }
 
     axios
-      .post(`https://unstop-task-backend-pawankumaryogi.vercel.app/seats/reserve`, {
+      .post(`http://localhost:8000/seats/reserve`, {
         No_of_Seats: Number(count),
       })
       .then((res) => {
@@ -56,6 +59,29 @@ function App() {
         toast({
           title: "Booking Successful",
           status: "success",
+          position: "top",
+          isClosable: true,
+        });
+        getSeats();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast({
+          title: error.response.data.message,
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
+      });
+  };
+  const handleReset = () => {
+    axios
+      .patch(`http://localhost:8000/seats/reset`)
+      .then((res) => {
+        setBooked(res.data);
+        toast({
+          title: "Reset Successful",
+          status: "info",
           position: "top",
           isClosable: true,
         });
@@ -85,110 +111,90 @@ function App() {
       </Flex>
     );
   }
-
+else
   return (
     <div
       style={{
-        backgroundColor: "teal",
-        display: "flex",
+        backgroundColor: "white",
+        display: "block",
+        // flexDirection:"coulmn",
         padding: "10px",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-   <div>
+    
+      
+       {/* Booking section */}
 
-      {/* Seat color indication */}
-
-      {/* <div style={{ height: "100px", width: "500px" }}>
-        {" "}
+        {/* <div style={{ height: "400px", width: "500px" }}> */}
         <Flex
-          // w={{ base: "60%", md: "20%", lg: "20%" }}
+          w={{ base: "80%", md: "40%", lg: "100%" }}
           flexDir={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          bgColor={"white"}
-          p={"40px"}
-          borderRadius={"50%"}
-          marginLeft={"80px"}
-          // marginButtom={"80px"}
-          boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px;"}
-        >
-          <div
-            style={{
-              height: "100px",
-              display: "flex",
-              marginBottom:"100px",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "80%",
-            
-            }}
-          >
-            <div style={{ marginBottom: "15px" }}>
-              <Flex alignItems={"center"} gap={"10px"}>
-                <LuArmchair color="green" size={"60px"} />
-                <Text fontSize={"20px"}>Available</Text>
-              </Flex>
-            </div>
-            <div>
-              <Flex alignItems={"center"} gap={"10px"}>
-                <LuArmchair color="red" size={"60px"} />
-                <Text fontSize={"20px"}>Reserved</Text>
-              </Flex>
-            </div>
-          </div>
-        </Flex>
-      </div>
-       Booking section */}
-
-      <div style={{ height: "400px", width: "500px"}}>
-        <Flex
-          // w={{ base: "80%", md: "40%", lg: "40%" }}
-          flexDir={"column"}
-          // justifyContent={"center"}
           align={"center"}
-          gap={"20px"}
+          // gap={"20px"}
           bgColor={"white"}
-          p={"10px"}
-          padding={"80px 20px 10px 10px"}
-          height={"450px"}
-          width={"550px"}
-          borderRadius={"50px"}
-          boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px;"}
+          padding={"10px 20px 10px 10px"}
+          // height={"450px"}
+          // width={"550px"}
+          borderRadius={"10px"}
+          boxShadow={"rgba(0, 0.1, 0, 0.2) 10px 15px 15px;"}
         >
           <Heading>Welcome to your Coach</Heading>
-          <h2 style={{fontSize:"30px"}}>Enter seats for booking..</h2>
-          <Flex alignItems={"center"} justifyContent={"center"}>
-            <Text w={"30%"}>Seats : </Text>
-            <Input
-              type="number"
-              value={count}
-              onChange={(e) => setCount(e.target.value)}
-            />
-          </Flex>
-          {booked.length > 0 ? (
-            <Text>Your Booked Seats : {booked.join(", ")}</Text>
-          ) : null}
-          <Button onClick={handleBook} colorScheme="teal" height={"100px"} width={"150px"} fontSize={"30px"} marginTop={"30px"} borderRadius={"50%"}>
-            Book
-          </Button>
         </Flex>
-      </div>
-      
-   </div>
-    
-      {/* Seat Layout */}
+        {/* </div> */}
+     
 
-      <div style={{ marginLeft: "150px" }}>
+      {/* Seat Layout */}
+      
+      <div style={{display:"flex", justifyContent:"center",paddingTop:"20px", alignItems:"center"}}>
+      <h2 style={{ fontSize: "25px" }}>Enter seats for booking..</h2>
+      <Flex width={'200px'} >
+        <InputGroup>
+          <InputLeftAddon>Seats :</InputLeftAddon>
+          <Input
+            type="number"
+            placeholder="phone number"
+            value={count}
+            onChange={(e) => setCount(e.target.value)}
+          />
+        </InputGroup>
+        </Flex>
+      {booked.length > 0 ? (
+        <Text>Your Booked Seats : {booked.join(", ")}</Text>
+      ) : null}
+      <Button
+        onClick={handleBook}
+        colorScheme="teal"
+        height={"30px"}
+        width={"70px"}
+        fontSize={"20px"}
+        marginLeft={"10px"}
+
+        // marginTop={"30px"}
+      >
+        Book
+      </Button>
+      <Button
+        onClick={handleReset}
+        colorScheme="red"
+        height={"30px"}
+        width={"70px"}
+        fontSize={"20px"}
+        // marginTop={"30px"}
+        marginLeft={"10px"}
+        // marginBottom={"30px"}
+      >
+        Reset
+      </Button>
+</div>
+      <div style={{ marginLeft: "150px", marginTop:"20px" }}>
         <Flex
           w={"95%"}
           justifyContent={"space-around"}
           alignItems={"center"}
-          gap={"60px"}
           flexDir={{ base: "column", md: "row", lg: "row" }}
-          h={{ base: "auto", md: "100vh", lg: "100vh" }}
+          h={{ base: "auto", md: "100vh", lg: "100%" }}
         >
           <Grid
             // w={{ base: "80%", md: "30%", lg: "30%" }}
@@ -200,14 +206,14 @@ function App() {
             // gridGap="1"
           >
             {seats.slice(0, 80).map((e) => (
-              <Box key={e._id} align="center" height="48px" width="100px">
+              <Box key={e._id} align="center" height="38px" width="90px">
                 <LuArmchair
-                  color={e.isBooked ? "red" : "green"}
+                  color={e.isBooked ? "gray" : "green"}
                   fontSize={"40px"}
                   // Adjust the height of the chairs
                   // Adjust the width of the chairs
                 />
-                <Text fontSize={"2vh"} mt={"-5px"}>
+                <Text fontSize={"11px"} mt={"-35px"}>
                   {e.seatNumber}
                 </Text>
               </Box>
